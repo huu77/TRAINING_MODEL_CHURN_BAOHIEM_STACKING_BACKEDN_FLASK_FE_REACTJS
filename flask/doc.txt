@@ -1,0 +1,52 @@
+# Bước 1: Tạo môi trường ảo
+python -m venv venv
+
+# Bước 2: Kích hoạt môi trường ảo
+# Trên Windows
+venv\Scripts\activate
+# Trên macOS và Linux
+source venv/bin/activate
+
+# Bước 3: Cài đặt các gói cần thiết
+pip install Flask python-dotenv
+
+# Bước 4: Lưu trữ các phụ thuộc
+pip freeze > requirements.txt
+
+# Bước 5: Chạy ứng dụng Flask
+flask run
+# hoặc
+python app.py
+
+# Bước 6: Hủy kích hoạt môi trường ảo
+deactivate
+
+# muốn cài tất cả thư viên : pip install -r requirements.txt
+
+
+####################################
+
+#tham số input của dữ liệu: 
+Column: Claim Reason (Medical,Other, Phone, Travel) ->Lý do khách hàng yêu cầu bồi thường (ví dụ: Du lịch, Y tế).
+Column: Data confidentiality (High, Very low, Medium, Low) ->Mức độ bảo mật dữ liệu, có thể là "Low" (thấp), "Medium" (trung bình), hoặc "High" (cao).
+Column: Claim Amount ( from 218 to 1440 ) ->Số tiền yêu cầu bồi thường của khách hàng.
+Category Premium (Unique values: [4794, 14390, 399, 1875]) ->Khoản phí bảo hiểm tương ứng với loại hình yêu cầu bồi thường.
+Column: Premium/Amount Ratio (0 -> 1%) ->Tỷ lệ giữa phí bảo hiểm và số tiền yêu cầu bồi thường.
+Column: Claim Request output ( No, Yes) ->Kết quả của yêu cầu bồi thường, có thể là "Yes" (chấp nhận) hoặc "No" (từ chối).
+Column: BMI () ->Chỉ số khối cơ thể (Body Mass Index) của khách hàng.
+
+//
+Medical	14390
+Phone	1875
+Travel	4794
+Other	399
+// 
+{
+    "Claim Reason": "Medical",  # Hoặc "Other", "Phone", "Travel"
+    "Data confidentiality": "High",  # Hoặc "Very low", "Medium", "Low"
+    "Claim Amount": 500,  # Giá trị từ 218 đến 1440
+    "Category Premium": 4794,  # Hoặc 14390, 399, 1875
+    "Premium/Amount Ratio": 0.05,  # Giá trị từ 0 đến 1%
+    "Claim Request output": "No",  # Hoặc "Yes"
+    "BMI": 24  # Chỉ số khối cơ thể, ví dụ từ 18 đến 28
+}
