@@ -5,10 +5,9 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from dotenv import load_dotenv
 from Lable import converToValue
+
 app = Flask(__name__)
 load_dotenv()
-
-
 app = Flask(__name__)
 CORS(app)
 
@@ -16,11 +15,8 @@ CORS(app)
 model_path = 'super_learner_model.pkl'
 if not os.path.isfile(model_path):
     raise FileNotFoundError(f"Mô hình không được tìm thấy tại {model_path}")
-
 model = joblib.load(model_path)
 print('Mô hình đã được tải từ file super_learner_model.pkl')
-
-
 # Tải scaler từ file
 scaler_path = 'scaler.pkl'
 if not os.path.isfile(scaler_path):
@@ -78,36 +74,6 @@ def home():
     except Exception as e:
         return jsonify({'error': f'Error: {str(e)}'}), 500
 
-@app.route('/predict', methods=['POST'])
-def predict():
-    try:
-        # Nhận dữ liệu từ yêu cầu POST
-        data = request.get_json()
-        if not data or 'features' not in data:
-            return jsonify({'error': 'No features provided'}), 400
-
-        # Chuyển đổi dữ liệu đầu vào thành định dạng numpy array
-        features = np.array(data['features']).reshape(1, -1)
-        
-        # In thông tin về dữ liệu đầu vào để kiểm tra
-        print(f"Features shape: {features.shape}")
-        print(f"Features data: {features}")
-
-        # Dự đoán với mô hình
-        prediction = model.predict(features)
-        
-        # In thông tin về dự đoán để kiểm tra
-        print(f"Prediction: {prediction}")
-
-        # Trả về dự đoán dưới dạng JSON
-        return jsonify({'prediction': int(prediction[0])})
-    
-    except ValueError as ve:
-        return jsonify({'error': f'ValueError: {str(ve)}'}), 400
-    except TypeError as te:
-        return jsonify({'error': f'TypeError: {str(te)}'}), 400
-    except Exception as e:
-        return jsonify({'error': f'Error: {str(e)}'}), 500
 
 
 

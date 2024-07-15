@@ -29,6 +29,6 @@ def converToValue(claim_reason_value, data_confidentiality_value, claim_request_
 
     return claim_reason_one_hot, data_confidentiality_one_hot, claim_request_output_one_hot
 
-# # Ví dụ sử dụng
-# arr = converToValue('Travel', 'Medium', 'Yes')
- 
+# Ví dụ sử dụng
+arr = converToValue('Travel', 'Medium', 'Yes')
+print(arr)
